@@ -1,0 +1,187 @@
+<div class="container-form">
+  <h2 class="header-appointment">Make an appointment</h2>
+
+  <!-- form window -->
+  <form
+    *ngIf="myPatientForm"
+    [formGroup]="myPatientForm"
+    class="form"
+    (ngSubmit)="onSubmit(myPatientForm)"
+  >
+    <div *ngIf="currentDoctor" class="doctor-info">
+      <img
+        class="doctor-info-logo"
+        [src]="currentDoctor.img || getPlaceholder()"
+        alt=""
+      />
+      <h4 class="doctor-info-header">
+        <span class="doctor-info-span">Specialization of chosen doctor:</span
+        >{{ currentDoctor.specialization }}
+      </h4>
+    </div>
+    <div>
+      <label class="label-field">
+        <span class="required">*</span>
+        <span class="label-text-decription">Please choose doctor:</span>
+        <select
+          formControlName="doctorFullName"
+          class="form-select"
+          aria-label="Default select example"
+          *ngIf="doctorsList$ | async as doctorsList"
+          placeholder="Choose Doctor"
+        >
+          <option
+            value="Choose Doctor"
+            untouched="true"
+            [defaultSelected]="true"
+            disabled
+          >
+            Choose Doctor
+          </option>
+          <option
+            requared=""
+            *ngFor="let item of doctorsList | filterId: id"
+            [value]="item.fullName"
+          >
+            {{ item.fullName }}
+          </option>
+        </select>
+      </label>
+      <div
+        class="error-message"
+        *ngIf="
+          myPatientForm.get('doctorFullName')?.invalid &&
+          myPatientForm.get('doctorFullName')?.dirty &&
+          myPatientForm.get('doctorFullName')?.touched &&
+          myPatientForm.get('doctorFullName')?.value
+        "
+      >
+        Please provide doctors name.
+      </div>
+    </div>
+
+    <div>
+      <label class="label-field">
+        <span class="required">*</span>
+        <span class="label-text-decription">Provide your full name:</span>
+        <input
+          class="form-control"
+          formControlName="patientFullName"
+          placeholder="Full name"
+        />
+      </label>
+      <div
+        class="error-message"
+        *ngIf="
+          myPatientForm.get('patientFullName')?.invalid &&
+          (myPatientForm.get('patientFullName')?.dirty ||
+            myPatientForm.get('patientFullName')?.touched)
+        "
+      >
+        Please provide a valid full name.
+      </div>
+    </div>
+    <div>
+      <label class="label-field">
+        <span class="required">*</span>
+        <span class="label-text-decription">Describe your problem:</span>
+        <textarea
+          formControlName="problem"
+          class="form-control"
+          placeholder="Please leave here a detail decription of your problem"
+          id="floatingTextarea2"
+          style="height: 100px"
+        ></textarea>
+      </label>
+      <div
+        class="error-message"
+        *ngIf="
+          myPatientForm.get('problem')?.invalid &&
+          (myPatientForm.get('problem')?.dirty ||
+            myPatientForm.get('problem')?.touched)
+        "
+      >
+        Description of your problems must be at least 8 characters long.
+      </div>
+    </div>
+    <div class="col-12">
+      <span class="required">*</span>
+      <span class="label-text-decription">Please choose date:</span>
+      <div class="input-group">
+        <input
+          formControlName="date"
+          #test
+          class="form-control"
+          placeholder="yyyy-mm-dd"
+          name="dp"
+          ngbDatepicker
+          #datePicker="ngbDatepicker"
+        />
+        <button
+          class="btn btn-outline-secondary calendar"
+          (click)="datePicker.toggle()"
+          type="button"
+        >
+          <img
+            class="calendar-logo"
+            src="https://cdn-icons-png.flaticon.com/512/42/42253.png"
+            alt=""
+          />
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="error-message"
+      *ngIf="
+        myPatientForm.get('date')?.invalid &&
+        (myPatientForm.get('date')?.dirty || myPatientForm.get('date')?.touched)
+      "
+    >
+      This field is required.
+    </div>
+    <div>
+      <span class="required">*</span>
+      <span class="label-text-decription small">- required field</span>
+    </div>
+    <div *ngIf="updateApp; else elseBlock">
+      <button
+        type="submit"
+
+        class="btn btn-primary btn-dark"
+        [disabled]="myPatientForm.invalid"
+        (click)="getIdToApp(currentDoctor?._id)"
+      >
+        Save changes
+      </button>
+    </div>
+    <ng-template #elseBlock>
+      <button
+        class="btn btn-primary btn-dark"
+        type="submit"
+        [disabled]="myPatientForm.invalid"
+        (click)="getIdToApp(currentDoctor?._id)"
+      >
+        Make an appointment
+      </button></ng-template
+    >
+  </form>
+</div>
+
+<!-- Alert -->
+<div *ngIf="showAlert" class="alert alert-success" role="alert">
+  <h4 class="alert-heading">Well done!</h4>
+  <p>
+    You have successfully made an appointment to
+    {{ newPatientForm.doctorFullName }} on
+    {{
+      newPatientForm.date.day < 10
+        ? "0" + newPatientForm.date.day
+        : newPatientForm.date.day
+    }}.{{
+      newPatientForm.date.month < 10
+        ? "0" + newPatientForm.date.month
+        : newPatientForm.date.month
+    }}
+  </p>
+</div>

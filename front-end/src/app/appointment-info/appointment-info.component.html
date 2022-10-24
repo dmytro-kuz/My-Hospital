@@ -1,0 +1,171 @@
+<div
+  *ngFor="let appointment of appointmentList$ | async; let i = index"
+  class="card"
+  [ngClass]="{ disabled: appointment._doc.done }"
+>
+  <ng-template #modalConfirm let-modal>
+    <div class="modal-header">
+      <h2 class="modal-title">Delete</h2>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <h3>Are you sure you want to delete?</h3>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-cancel"
+        (click)="modal.dismiss('cancel click')"
+      >
+        Cancel
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger"
+        (click)="
+          modal.close('Ok click'); deleteAppointment(appointment._doc._id)
+        "
+      >
+        Ok
+      </button>
+    </div>
+  </ng-template>
+
+  <div class="card-header">
+    <img
+      class="doctor-log"
+      [src]="appointment.doctor.img || getPlaceholder()"
+    />
+    <div class="card-header-info">
+      <h5 class="doctor-name">{{ appointment.doctor.fullName }}</h5>
+      <h6 class="doctor-specialization">
+        {{ appointment.doctor.specialization }}
+      </h6>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <h6>
+      <span class="text-decor">Date of appointment:</span>
+      {{
+        appointment._doc.date.day < 10
+          ? "0" + appointment._doc.date.day
+          : appointment._doc.date.day
+      }}.{{
+        appointment._doc.date.month < 10
+          ? "0" + appointment._doc.date.month
+          : appointment._doc.date.month
+      }}.{{ appointment._doc.date.year }}
+    </h6>
+    <h6 class="card-title">
+      <span class="text-decor">Patient full name:</span>
+      {{ appointment._doc.patientFullName }}
+    </h6>
+    <p class="card-text">
+      <span class="text-decor">Patient complaints:</span>
+      {{ appointment._doc.problem }}
+    </p>
+    <p (click)="addEdit(i)" *ngIf="showEdit(i); else edit" class="card-title">
+      <span class="text-decor">Treatment review from doctor: </span>
+      <span class="editTreatment"
+        >{{
+          appointment._doc.treatmentReview
+            ? appointment._doc.treatmentReview
+            : "None"
+        }}
+        &#9998;
+      </span>
+    </p>
+    <ng-template #edit>
+      <form
+        *ngIf="appointmentForm"
+        [formGroup]="appointmentForm"
+        (ngSubmit)="onSubmit(appointmentForm, appointment._doc._id, i)"
+      >
+        <textarea
+          formControlName="treatmentReview"
+          class="form-control textarea-review"
+          placeholder="Detail tеreatment review"
+          id="floatingTextarea2"
+          style="height: 100px"
+          [placeholder]="
+            appointment._doc.treatmentReview
+              ? appointment._doc.treatmentReview
+              : 'Detail treatment review'
+          "
+        >
+        </textarea>
+        <button type="button" class="btn btn-dark" type="submit">
+          Add treament review
+        </button>
+      </form>
+    </ng-template>
+    <h5
+      (click)="addEditDone(i)"
+      *ngIf="showEditDone(i); else editDone"
+      class="card-title"
+    >
+      <span class="text-decor">Complited:</span>
+      {{ appointment._doc.done ? "&#9989;" : "No" }} &#9998;
+    </h5>
+    <ng-template #editDone>
+      <span class="text-decor">Complited:</span>
+      <form
+        *ngIf="appointmentForm"
+        [formGroup]="appointmentForm"
+        (ngSubmit)="onSubmit(appointmentForm, appointment._doc._id, i)"
+      >
+        <input
+          class="form-check"
+          formControlName="done"
+          class="form-check-input mt-0"
+          name="done"
+          type="radio"
+          value="true"
+          aria-label="Checkbox for following text input"
+        />
+        <label class="form-check-label" name="done" for="Yes"> Yes</label>
+        <input
+          class="form-check"
+          formControlName="done"
+          class="form-check-input mt-0"
+          name="done"
+          type="radio"
+          value="false"
+          aria-label="Checkbox for following text input"
+        />
+        <label class="form-check-label" name="done" for="No"> No</label>
+        <br />
+        <button class="btn btn-dark" type="submit" value="false">
+          Add treament review
+        </button>
+      </form>
+    </ng-template>
+    <div class="button-container">
+      <button
+        class="btn btn-primary"
+        routerLink="/doctor-info"
+        [disabled]="appointment._doc.done"
+        [queryParams]="{
+          id: appointment.doctor._id,
+          edit: true,
+          app_id: appointment._doc._id
+        }"
+      >
+        Edit Appointment
+      </button>
+      <button (click)="open(modalConfirm)" class="btn btn-danger">
+        Delete Appointment
+      </button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="showAlert" class="alert alert-success" role="alert">
+  <h4 class="alert-heading">You have successfully update an appointment!</h4>
+</div>

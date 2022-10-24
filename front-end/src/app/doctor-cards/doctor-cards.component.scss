@@ -1,0 +1,65 @@
+.carusel-container{
+  margin: auto;
+  margin-top: 38px;
+  // max-width: 800px;
+}
+
+ngbd-carousel-pause{
+  height: 100px;
+}
+
+.container-list {
+    margin: 35px auto 15px;
+    max-width: 70vw;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(3, 1fr);
+}
+.header-container{
+  // margin: 15px 75px;
+  margin: auto;
+  width: 80vw;
+}
+.doctors-header {
+  width: 100%;
+  margin-left: 15px;
+  // position: absolute;
+  top: 100px;
+}
+.button-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  & .btn-light{
+    margin: 15px;
+  }
+}
+
+.showMoreHide{
+  display: none;
+}
+
+@media screen and (min-width: 320px) {
+    .container-list {
+        grid-template-columns: repeat(1, 1fr);
+        display: grid;
+    }
+  }
+
+  @media screen and (min-width: 600px) {
+    .container-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (min-width: 960px) {
+    .container-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media screen and (min-width: 1280px) {
+    .container-list {
+        grid-template-columns: repeat(4, 1fr);
+    }
+  }

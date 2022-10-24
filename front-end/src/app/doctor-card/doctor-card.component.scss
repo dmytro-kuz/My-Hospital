@@ -1,0 +1,86 @@
+.card {
+    min-height: 570px;
+    margin: 20px 0 40px 0;
+    transition: ease-out .2s;
+    background-color: rgba(221, 221, 221, 0.1);
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 30px;
+    &:hover {
+        cursor: pointer;
+        transition: ease-in .3s;
+        transform: scale(1.1);
+        box-shadow: 0px 20px 22px 1px rgba(0,0,0,0.75);
+    }
+}
+
+.card-img-top {
+    background-color: #fff;
+    object-fit: cover;
+    height: 300px;
+}
+
+.card-body{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.buttons-container{
+    position: absolute;
+    bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+}
+
+.btn{
+    height: 50px;
+    margin-right: 18px ;
+}
+
+.button-add{
+    display: flex;
+    justify-content: center;
+  }
+  
+  .btn-success {
+    border-radius: 40px;
+    padding: 12px 40px;
+    font-size: 32px;
+    margin-bottom: 50px;
+  }
+
+  .btn-cancel{
+    background-color: white;
+    color: black;
+  }
+
+.error-message {
+  color: rgb(255, 7, 7);
+}
+
+
+input.ng-invalid.ng-touched {
+  border: 3px solid red;
+  background-color: rgb(255, 2, 2, 0.7);
+}
+
+textarea.ng-invalid.ng-touched {
+  border: 3px solid red;
+}
+
+.label-text-decription {
+  margin-left: 10px;
+  & .small {
+    font-size: 12px;
+  }
+}
+
+.required {
+  position: absolute;
+  color: red;
+  margin-right: 10px;
+}
+

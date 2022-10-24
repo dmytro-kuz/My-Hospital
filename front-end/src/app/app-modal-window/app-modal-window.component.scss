@@ -1,0 +1,38 @@
+.button-add{
+    display: flex;
+    justify-content: center;
+  }
+  
+  .btn-success {
+    border-radius: 40px;
+    padding: 12px 40px;
+    font-size: 32px;
+    margin-bottom: 50px;
+  }
+
+.error-message {
+  color: rgb(255, 7, 7);
+}
+
+
+input.ng-invalid.ng-touched {
+  border: 3px solid red;
+}
+
+textarea.ng-invalid.ng-touched {
+  border: 3px solid red;
+}
+
+.label-text-decription {
+  margin-left: 10px;
+  & .small {
+    font-size: 12px;
+  }
+}
+
+.required {
+  position: absolute;
+  color: red;
+  margin-right: 10px;
+}
+

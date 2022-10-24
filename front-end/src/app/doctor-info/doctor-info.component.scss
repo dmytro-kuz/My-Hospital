@@ -1,0 +1,111 @@
+body {
+  position: absolute;
+}
+.container-form {
+  max-width: 500px;
+  margin: 70px auto;
+}
+
+.header-appointment {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+
+.form {
+  background-color: rgba(230, 230, 230, 0.2);
+  border: 2px solid #ccc;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 500px;
+  padding: 20px;
+
+  & .appointment-form {
+    margin: 20px 15px;
+    padding: 15px;
+  }
+}
+.input{
+  padding: 5px;
+}
+
+.btn-dark {
+  margin-top: 25px;
+  padding: 10px 5px;
+}
+
+.error-message {
+  color: rgb(255, 7, 7);
+}
+
+
+input.ng-invalid.ng-touched {
+  border: 3px solid red;
+}
+
+textarea.ng-invalid.ng-touched {
+  border: 3px solid red;
+}
+
+
+.label-text-decription {
+  margin-left: 10px;
+
+  & .small {
+    font-size: 12px;
+  }
+}
+
+.required {
+  position: absolute;
+  color: red;
+  margin-right: 10px;
+}
+
+.alert {
+  max-width: 500px;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+}
+
+.calendar {
+  background-color: rgb(255, 255, 255);
+
+  & .calendar-logo {
+    width: 25px;
+  }
+}
+
+.doctor-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.doctor-info-logo {
+  height: 125px;
+  max-width: 120px;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.doctor-info-header {
+  margin: 5px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid rgb(255, 255, 255);
+}
+
+.doctor-info-span {
+  text-decoration: underline;
+  font-style: italic;
+  margin-bottom: 22px;
+  color: black;
+}

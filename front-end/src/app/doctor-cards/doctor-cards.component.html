@@ -1,0 +1,19 @@
+<div class="carusel-container">
+  <ngbd-carousel-pause></ngbd-carousel-pause>
+</div>
+<div class="header-container">
+  <h2 class="doctors-header">Our Doctors</h2>
+
+</div>
+<div class="container-list">
+  <div *ngFor="let doctor of doctorsList$ | async | slice: 0: slice" class="container-md">
+    <app-doctor-card [doctor]="doctor"></app-doctor-card>
+  </div>
+
+</div>
+<div [ngClass]="{'showMoreHide': isMoreDoctors}" class="button-container">
+  <button (click)="showMore(isMoreDoctors)" type="button" class="btn btn-light">Show more doctors</button>
+</div>
+
+
+<app-app-modal-window></app-app-modal-window>

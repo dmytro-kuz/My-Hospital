@@ -1,0 +1,11 @@
+.container-list {
+  margin: 35px auto;
+  max-width: 80vw;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.appointments-header {
+  margin: 70px 0  0 175px;
+}
